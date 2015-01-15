@@ -5,6 +5,243 @@ cheatsheet do
     source_url 'http://cheat.kapeli.com'
     
     category do
+        id 'Basics'
+
+        entry do
+            command ':e {filename}'
+            name 'Open file'
+            notes 'Opens filename for editing'
+        end
+       entry do
+           command ':w'
+           name 'Save file'
+        end
+       entry do
+           command ':q'
+           name 'Exit'
+           notes 'Exit Vim'
+        end
+       entry do
+           command ':q!'
+           name 'Quit without saving'
+        end
+       entry do
+           command ':x'
+           name 'Write file + Exit'
+           notes 'If changes have been made, writes file and exits'
+        end
+       entry do
+           command ':sav {filename}'
+           name 'Save file as filename'
+           notes 'Saves file with a new filename'
+        end
+    end
+category do
+        id 'Moving Around'
+        
+        entry do
+            name 'Basic motion commands'
+            notes <<-'END'
+            ```
+              k              <up>
+            h   l      <left>    <right>
+              j             <down>
+            ```
+            END
+        end
+        entry do
+            command 'h'
+            command '<Left>'
+            name '[count] characters to the left (exclusive)'
+        end
+        entry do
+            command 'l'
+            command '<Right>'
+            command '<Space>'
+            name '[count] characters to the right (exclusive)'
+        end
+        entry do
+            command 'k'
+            command '<Up>'
+            command 'CTRL-P'
+            name '[count] lines upward'
+        end
+        entry do
+            command 'j'
+            command '<Down>'
+            command 'CTRL-J'
+            command '<NL>'
+            command 'CTRL-N'
+            name '[count] lines downward (linewise)'
+        end
+        entry do
+            command '0'
+            command '<Home>'
+            name 'To the first character of the line (exclusive)'
+        end
+        entry do
+            command '^'
+            name 'To the first non-blank character of the line'
+        end
+        entry do
+            command '$'
+            command '<End>'
+            name 'To the end of the line and [count - 1] lines downward'
+        end
+        entry do
+            command 'g0'
+            command 'g<Home>'
+            name 'To the first character of the screen line (exclusive) when lines wrap (\'wrap on). Differs from `0` when a line is wider than the screen
+
+            To the leftmost character of the current line that is on the screen when lines don\'t wrap (\'wrap\' off). Differs from `0` when the first character of the line is not on the screen'
+        end
+        entry do
+            command 'g^'
+            name 'To the first non-blank character of the screen line (exclusive) when lines wrap (\'wrap\' on). Differs from `^` when a line is wider than the screen. 
+
+            To the leftmost non-blank character of the current line that is on the screen when lines don\'t wrap (\'wrap\' off). Differs from `^` when the first non-blank character of the line is not on the screen'
+        end
+        entry do
+            command 'g$'
+            command 'g<End>'
+            name 'To the last character of the screen line and [count - 1] screen lines downward (inclusive) when lines wrap (\'wrap\' on). Differs from `$` when a line is wider than the screen. 
+
+            To the rightmost character of the current line that is visible on the screen when lines don\'t wrap (\'wrap\' off). Differs from `$` when the last character of the line is not on the screen or when a count is used'
+        end
+        entry do
+            command 'f{char}'
+            name 'To [count]\'th occurrence of {char} to the right. The cursor is placed on {char} (inclusive)'
+        end
+        entry do
+            command 'F{char}'
+            name 'To the [count]\'th occurrence of {char} to the left. The cursor is placed on {char} (inclusive)'
+        end
+        entry do
+            command 't{char}'
+            name 'Till before [count]\'th occurrence of {char} to the right. The cursor is placed on the character left of {char} (inclusive)'
+        end
+        entry do
+            command 'T{char}'
+            name 'Till after [count]\'th occurrence of {char} to the left. The cursor is placed on the character right of {char} (inclusive)'
+        end
+        entry do
+            command ';'
+            name 'Repeat latest f, t, F or T [count] times'
+        end
+        entry do
+            command ','
+            name 'Repeat latest f, t, F or T in opposite direction [count] times'
+        end
+        entry do
+            command '-  <minus>'
+            name '[count] lines upward, on the first non-blank character (linewise)'
+        end
+        entry do
+            command '+'
+            command 'CTRL-M'
+            command '<CR>'
+            name '[count] lines downward, on the first non-blank character
+            (linewise)'
+        end
+        entry do
+            command '_  <underscore>'
+            name '[count] - 1 lines downward, on the first non-blank character (linewise)'
+        end
+        entry do
+            command '<C-End>'
+            command 'G'
+            name 'Goto line [count] on the first non-blank character'
+            notes 'Default: last line'
+        end
+        entry do
+            command '<C-Home>'
+            command 'gg'
+            name 'Goto line [count] on the first non-blank character'
+            notes 'Default: first line'
+        end
+        entry do
+            command '<S-Right>'
+            command 'w'
+            name '[count] words forward'
+        end
+        entry do
+            command '<C-Right>'
+            command 'W'
+            name '[count] WORDS forward'
+        end
+        entry do
+            command 'e'
+            name 'Forward to the end of word [count]'
+        end
+        entry do
+            command 'E'
+            name 'Forward to the end of WORD [count]'
+        end
+        entry do
+            command '<S-Left>'
+            command 'b'
+            name '[count] words backward'
+        end
+        entry do
+            command '<C-Left>'
+            command 'B'
+            name '[count] WORDS backward'
+        end
+        entry do
+            command 'ge'
+            name 'Backward to the end of word [count]'
+        end
+        entry do
+            command 'gE'
+            name 'Backward to the end of WORD [count]'
+        end
+        
+        entry do
+            notes <<-'END'
+            The following commands move over words or WORDS.
+
+            A word consists of a sequence of letters, digits and underscores, or a sequence of other non-blank characters, separated with white space (spaces, tabs, &lt;EOL&gt;). This can be changed with the 'iskeyword' option.
+
+            A WORD consists of a sequence of non-blank characters, separated with white space. An empty line is also considered to be a word and a WORD.
+            END
+        end
+    
+        entry do
+            command '('
+            name '[count] sentences backward'
+        end
+        entry do
+            command ')'
+            name '[count] sentences forward'
+        end
+        entry do
+            command '{'
+            name '[count] paragraphs backward'
+        end
+        entry do
+            command '}'
+            name '[count] paragraphs forward'
+        end
+        entry do
+            command ']]'
+            name '[count] sections forward or to the next \'{\' in the first column'
+            notes 'When used after an operator, then the \'}\' in the first column'
+        end
+        entry do
+            command ']['
+            name '[count] sections forward or to the next \'}\' in the first column'
+        end
+        entry do
+            command '[['
+            name '[count] sections backward or to the previous \'{\' in the first column'
+        end
+        entry do
+            command '[]'
+            name '[count] sections backward or to the previous \'}\' in the first column'
+        end
+
+    end
+    category do
         id 'How to Exit'
         
         entry do
@@ -343,257 +580,6 @@ cheatsheet do
         end
     end
 
-    category do
-        id 'Moving Around'
-        
-        entry do
-            name 'Basic motion commands'
-            notes <<-'END'
-            ```
-              k              <up>
-            h   l      <left>    <right>
-              j             <down>
-            ```
-            END
-        end
-        entry do
-            command 'h'
-            command '<Left>'
-            name '[count] characters to the left (exclusive)'
-        end
-        entry do
-            command 'l'
-            command '<Right>'
-            command '<Space>'
-            name '[count] characters to the right (exclusive)'
-        end
-        entry do
-            command 'k'
-            command '<Up>'
-            command 'CTRL-P'
-            name '[count] lines upward'
-        end
-        entry do
-            command 'j'
-            command '<Down>'
-            command 'CTRL-J'
-            command '<NL>'
-            command 'CTRL-N'
-            name '[count] lines downward (linewise)'
-        end
-        entry do
-            command '0'
-            command '<Home>'
-            name 'To the first character of the line (exclusive)'
-        end
-        entry do
-            command '^'
-            name 'To the first non-blank character of the line'
-        end
-        entry do
-            command '$'
-            command '<End>'
-            name 'To the end of the line and [count - 1] lines downward'
-        end
-        entry do
-            command 'g0'
-            command 'g<Home>'
-            name 'To the first character of the screen line (exclusive) when lines wrap (\'wrap on). Differs from `0` when a line is wider than the screen
-
-            To the leftmost character of the current line that is on the screen when lines don\'t wrap (\'wrap\' off). Differs from `0` when the first character of the line is not on the screen'
-        end
-        entry do
-            command 'g^'
-            name 'To the first non-blank character of the screen line (exclusive) when lines wrap (\'wrap\' on). Differs from `^` when a line is wider than the screen. 
-
-            To the leftmost non-blank character of the current line that is on the screen when lines don\'t wrap (\'wrap\' off). Differs from `^` when the first non-blank character of the line is not on the screen'
-        end
-        entry do
-            command 'g$'
-            command 'g<End>'
-            name 'To the last character of the screen line and [count - 1] screen lines downward (inclusive) when lines wrap (\'wrap\' on). Differs from `$` when a line is wider than the screen. 
-
-            To the rightmost character of the current line that is visible on the screen when lines don\'t wrap (\'wrap\' off). Differs from `$` when the last character of the line is not on the screen or when a count is used'
-        end
-        entry do
-            command 'f{char}'
-            name 'To [count]\'th occurrence of {char} to the right. The cursor is placed on {char} (inclusive)'
-        end
-        entry do
-            command 'F{char}'
-            name 'To the [count]\'th occurrence of {char} to the left. The cursor is placed on {char} (inclusive)'
-        end
-        entry do
-            command 't{char}'
-            name 'Till before [count]\'th occurrence of {char} to the right. The cursor is placed on the character left of {char} (inclusive)'
-        end
-        entry do
-            command 'T{char}'
-            name 'Till after [count]\'th occurrence of {char} to the left. The cursor is placed on the character right of {char} (inclusive)'
-        end
-        entry do
-            command ';'
-            name 'Repeat latest f, t, F or T [count] times'
-        end
-        entry do
-            command ','
-            name 'Repeat latest f, t, F or T in opposite direction [count] times'
-        end
-        entry do
-            command '-  <minus>'
-            name '[count] lines upward, on the first non-blank character (linewise)'
-        end
-        entry do
-            command '+'
-            command 'CTRL-M'
-            command '<CR>'
-            name '[count] lines downward, on the first non-blank character
-            (linewise)'
-        end
-        entry do
-            command '_  <underscore>'
-            name '[count] - 1 lines downward, on the first non-blank character (linewise)'
-        end
-        entry do
-            command '<C-End>'
-            command 'G'
-            name 'Goto line [count] on the first non-blank character'
-            notes 'Default: last line'
-        end
-        entry do
-            command '<C-Home>'
-            command 'gg'
-            name 'Goto line [count] on the first non-blank character'
-            notes 'Default: first line'
-        end
-        entry do
-            command '<S-Right>'
-            command 'w'
-            name '[count] words forward'
-        end
-        entry do
-            command '<C-Right>'
-            command 'W'
-            name '[count] WORDS forward'
-        end
-        entry do
-            command 'e'
-            name 'Forward to the end of word [count]'
-        end
-        entry do
-            command 'E'
-            name 'Forward to the end of WORD [count]'
-        end
-        entry do
-            command '<S-Left>'
-            command 'b'
-            name '[count] words backward'
-        end
-        entry do
-            command '<C-Left>'
-            command 'B'
-            name '[count] WORDS backward'
-        end
-        entry do
-            command 'ge'
-            name 'Backward to the end of word [count]'
-        end
-        entry do
-            command 'gE'
-            name 'Backward to the end of WORD [count]'
-        end
-        
-        entry do
-            notes <<-'END'
-            The following commands move over words or WORDS.
-
-            A word consists of a sequence of letters, digits and underscores, or a sequence of other non-blank characters, separated with white space (spaces, tabs, &lt;EOL&gt;). This can be changed with the 'iskeyword' option.
-
-            A WORD consists of a sequence of non-blank characters, separated with white space. An empty line is also considered to be a word and a WORD.
-            END
-        end
-    
-        entry do
-            command '('
-            name '[count] sentences backward'
-        end
-        entry do
-            command ')'
-            name '[count] sentences forward'
-        end
-        entry do
-            command '{'
-            name '[count] paragraphs backward'
-        end
-        entry do
-            command '}'
-            name '[count] paragraphs forward'
-        end
-        entry do
-            command ']]'
-            name '[count] sections forward or to the next \'{\' in the first column'
-            notes 'When used after an operator, then the \'}\' in the first column'
-        end
-        entry do
-            command ']['
-            name '[count] sections forward or to the next \'}\' in the first column'
-        end
-        entry do
-            command '[['
-            name '[count] sections backward or to the previous \'{\' in the first column'
-        end
-        entry do
-            command '[]'
-            name '[count] sections backward or to the previous \'}\' in the first column'
-        end
-
-    end
-
-
-    category do
-        id 'Marks'
-        entry do
-            command 'm{a-zA-Z}'
-            name 'Set mark {a-zA-Z} at cursor position'
-            notes 'Does not move the cursor, this is not a motion command'
-        end
-        entry do
-            command 'm\''
-            command 'm\`'
-            name 'Set the previous context mark'
-            notes 'This can be jumped to with the `\'\'` or ``` `` ``` command. Does not move the cursor, this is not a motion command'
-        end
-        entry do
-            command ':[range]ma[rk] {a-zA-Z}'
-            command ':[range]k{a-zA-Z}'
-            name 'Set mark {a-zA-Z} at last line number in [range], column 0'
-            notes 'Default is cursor line'
-        end
-        entry do
-            command '\'{a-z}'
-            name 'To the first non-blank character on the line with mark {a-z} (linewise)'
-        end
-        entry do
-            command '\'{A-Z0-9}'
-            name 'To the first non-blank character on the line with mark {A-Z0-9} in the correct file'
-        end
-        entry do
-            command '`{a-z}'
-            name 'To the mark {a-z}'
-        end
-        entry do
-            command '`{A-Z0-9}'
-            name 'To the mark {A-Z0-9} in the correct file'
-        end
-        entry do
-            command ':marks'
-            name 'List all the current marks (not a motion command)'
-        end
-        entry do
-            command ':marks {arg}'
-            name 'List the marks that are mentioned in {arg} (not a motion command). For example:'
-        end
-    end
 
 
     category do
